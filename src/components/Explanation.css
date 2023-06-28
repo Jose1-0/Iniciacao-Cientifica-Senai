@@ -1,0 +1,21 @@
+.text {
+    width: 670px;
+    margin: 0 auto;
+    background-color: hsl(240, 100%, 99%);
+    padding: 1.5rem;
+    box-shadow: rgb(253, 250, 250) 0px 7px 29px 0px;
+    margin-bottom: 1%;
+    
+}
+
+p { 
+    font-family: arial; 
+    text-align: justify;
+    font-size: 14px; line-height: 1.7em;
+}
+
+#termo {
+    text-align: center;
+    font-size: 8px;
+    margin-top: 2%;
+}

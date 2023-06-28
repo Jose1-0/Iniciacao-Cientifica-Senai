@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+}
+
+body,
+html {
+  min-height: 100vh;
+  height: 100%;
+  background-color: #fffbff;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  margin-top: 5%;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.3rem 1rem;
+  background: linear-gradient(
+    90deg,
+    rgb(228, 221, 235) 0%,
+    rgb(225, 225, 230) 100%
+  );
+  border-radius: 3rem;
+  border: none;
+}

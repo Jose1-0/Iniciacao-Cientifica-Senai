@@ -1,0 +1,22 @@
+#question {
+    background-color: hsl(240, 100%, 99%);;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    width: 500px;
+    font: bold;
+  }
+  
+  #question p {
+    margin-bottom: 1rem;
+    text-align: center;
+    font: bold;
+  }
+  
+  #question h2 {
+    margin-bottom: 2rem;
+  }
+  
+  #question button {
+    border: 2px solid #5197e6;
+    margin: 1rem;
+  }
