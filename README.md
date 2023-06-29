@@ -1,2 +1,2 @@
 projeto feito em react,
-usando routes
+usando routes, projeto em desenvolvimento
