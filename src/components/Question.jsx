@@ -4,6 +4,7 @@ import { QuizContext } from "../context/quiz";
 import Option from "./Option"; 
 
 import "./Question.css";
+import AudioQuiz from "./AudioQuiz";
 
 const Question = () => {
   const [quizState, dispatch] = useContext(QuizContext)
@@ -18,6 +19,7 @@ const Question = () => {
   
   return (
     <div id='question'>
+      <AudioQuiz />
       <p>
         Pergunta {quizState.currentQuestion + 1} de {quizState.questions.length}
       </p>

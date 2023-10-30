@@ -4,12 +4,13 @@ import { QuizContext } from "../context/quiz";
 
 import "./TextPage.css";
 import Audio from "./Audio";
+import AudioLeituraTexto from "./AudioLeituraTexto";
 
 const TextPage = () => {
     const [quizState, dispatch] = useContext(QuizContext);
   return (
     <div>
-        <Audio />
+        <AudioLeituraTexto />
         <div className="text">
         <h2>Nutrição e seus impacto no cotidiano</h2>
         <p>A nutrição é fundamental para a saúde e o bem-estar humano. Ela envolve a escolha de alimentos que fornecem nutrientes essenciais para o corpo humano, incluindo vitaminas, minerais, proteínas, carboidratos e gorduras. Quando uma dieta equilibrada é seguida, ela pode melhorar a qualidade de vida, prevenir doenças e manter um peso corporal saudável.</p>

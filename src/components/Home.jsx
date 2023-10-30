@@ -4,6 +4,7 @@ import { useState } from "react";
 
 
 import "./Home.css";
+import AudioPrimeiraEtapa from "./AudioPrimeiraEtapa";
 
 const Home = () => {
 
@@ -20,6 +21,7 @@ const Home = () => {
   
   return (
     <div className='form-control'>
+    <AudioPrimeiraEtapa />
       <form className='campoNome'>
         <label className='nome' htmlFor='name'>Nome: </label>
         <input 

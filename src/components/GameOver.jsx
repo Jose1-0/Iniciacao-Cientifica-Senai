@@ -10,6 +10,7 @@ import { QuizContext } from "../context/quiz";
 
 
 import "./GameOver.css";
+import AudioResultados from "./AudioResultados";
 
 const GameOver = (props) => {
   const [quizState, dispatch] = useContext(QuizContext);
@@ -18,6 +19,7 @@ const GameOver = (props) => {
 
   return (
     <div id="gameover">
+      <AudioResultados />
       <h2>Etapa de <b>quiz</b> realizada com sucesso!</h2>
       <p>Pontuação: {quizState.score}</p>
       <p>

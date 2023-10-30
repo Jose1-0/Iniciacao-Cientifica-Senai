@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { QuizContext } from "../context/quiz";
-
+import AudioPrimeiraEtapa from "./AudioPrimeiraEtapa";
 
 import "./Explanation.css";
 
@@ -9,6 +9,7 @@ const Explanation = () => {
 
   return (
     <div className="text">
+      <AudioPrimeiraEtapa />
         <h2>Seja bem-vindo!</h2>
         <p> Esse protótipo faz parte de um projeto de iniciação científica do Centro Universitário Senai <b>UniSenai - Londrina</b>. O objetivo desse projeto é entender elementos que influenciam na aprendizagem online. Para isso, lhe convidamos a participar de um estudo que deve durar entre 5 e 15 minutos. Ao participar desse estudo, você irá passar por três etapas: ler um texto instrucional, responder um quiz com cinco questões de múltipla-escolha e responder algumas questões sobre sua experiência com o site. É importante ressaltar que esse protótipo pode fazer uso de efeitos sonoros. Por isso, solicitamos que você use um fone de ouvido <b>preferencialmente</b> ou habilite a caixa de som de seu dispositivo”
         </p>
