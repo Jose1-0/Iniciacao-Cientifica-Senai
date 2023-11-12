@@ -278,11 +278,12 @@ async function getUser(name_user){
   return returnarray;
 };
 
-async function addUser(name_user, birthday, gender){
+async function addUser(name_user, birthday, gender, email){
   var returnarray = [];
   axios.post(UrlDefault+"User/create/", {
       name_user: name_user,
       birthday: birthday,
+      email: email,
       gender: gender
     })
     .then(function (response) {
