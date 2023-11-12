@@ -26,15 +26,23 @@
     font-weight: bold;
     color: #070707;
     font-size: .9rem;
-    margin-right: 95%;
+    margin-right: 89%;
 }
 
 .nome {
     font-weight: bold;
     color: #0e0d0d;
     font-size: .9rem;
-    margin-right: 95%;
+    margin-right: 89%;
 }
+
+.dateNasc {
+    font-weight: bold;
+    color: #0e0d0d;
+    font-size: .9rem;
+    margin-right: 75%;
+}
+
 
 .pego {
     font-weight: bold;

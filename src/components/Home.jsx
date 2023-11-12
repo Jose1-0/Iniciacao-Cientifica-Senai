@@ -13,6 +13,9 @@ const Home = () => {
 
   const [name, setName] = useState("");
 
+  const [selectedGender, setSelectedGender] = useState(""); // Adiciona o estado para armazenar o gênero selecionado
+  const [otherGender, setOtherGender] = useState(""); // Adiciona o estado para armazenar o gênero especificado pelo usuário
+
   const handleChange = (event) => {
     setName(event.target.value);
     
@@ -33,6 +36,17 @@ const Home = () => {
           required
         />
       </form>
+      <form className='campoNome'>
+        <label className='dateNasc' htmlFor='dateNasc'>Data de nascimento: </label>
+        <input 
+          onChange={handleChange}
+          type="date" 
+          name='dateNasc' 
+          id='dateNasc' 
+          placeholder='Digite tua data ai o' 
+          required
+        />
+      </form>
       <form className='campoEmail'>
         <label className='email' htmlFor='email'>Email: </label>
         <input 
@@ -40,22 +54,20 @@ const Home = () => {
           name='email' 
           id='email' 
           placeholder='Digite seu Email' 
-          required></input>
-        
-        <br></br>
-        {/*<input className='lgpd' 
-        type='checkbox' 
-        id='LGPD'
-        required>
-        </input>
-        <label className='pego' for="LGPD">LGPD</label>*/}
-        
-        <button type='submit' onClick={() => dispatch({ type: "HOME_PAGE" })}>Continuar</button>
-        
-          
-        
-       
+          required>
+          </input>
       </form>
+
+      
+        <label className='genero' htmlFor='gender'>Gênero: </label>
+        <select id='gender' required>
+          <option value=''>Selecione um gênero</option>
+          <option value='masculino'>Masculino</option>
+          <option value='feminino'>Ffeminino</option>
+          <option value='outro'>Prefiro não responder</option>
+        </select>
+      <br></br>
+      <button type='submit' onClick={() => dispatch({ type: "HOME_PAGE" })}>Continuar</button>
     </div>
 
 
