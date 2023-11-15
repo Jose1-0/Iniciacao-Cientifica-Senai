@@ -24,7 +24,7 @@ async function getQuestions(subject){
     return returnarray;
 };
 
-async function addQuestions(questiontext, idoption, typequestion){
+export async function addQuestions(questiontext, idoption, typequestion){
     var returnarray = [];
     axios.post(UrlDefault+"Question/create/", {
         question_text: questiontext,
@@ -154,7 +154,7 @@ async function getOption(subject){
   return returnarray;
 };
 
-async function addOption(option_text, correct){
+export async function addOption(option_text, correct){
   var returnarray = [];
   axios.post(UrlDefault+"Option/create/", {
       option_text: option_text,
@@ -215,8 +215,9 @@ async function getResponse(userid){
   return returnarray;
 };
 
-async function addResponse(userid, question, selected_option){
+export async function addResponse(userid, question, selected_option){
   var returnarray = [];
+  console.log(userid, question, selected_option);
   axios.post(UrlDefault+"Response/create/", {
       user: userid,
       question: question,
@@ -278,8 +279,9 @@ async function getUser(name_user){
   return returnarray;
 };
 
-async function addUser(name_user, birthday, gender, email){
+export async function addUser(name_user, birthday, gender, email){
   var returnarray = [];
+  console.log(name_user, birthday, gender, email)
   axios.post(UrlDefault+"User/create/", {
       name_user: name_user,
       birthday: birthday,
@@ -288,6 +290,9 @@ async function addUser(name_user, birthday, gender, email){
     })
     .then(function (response) {
       console.log(response);
+      console.log(getUser(name_user));
+      dispatch({ type: "SET_USER_ID", payload: userId }); 
+      return getUser(name_user);
     })
     .catch(function (error) {
       console.log(error);
@@ -321,27 +326,27 @@ async function deleteUser(id_User){
 };
 
 //Exemplos
-addQuestions("Onde está localizado a Europa", 1, "Geografia"); // cria um novo registro
-updateQuestions(6,"Onde está localizado a Dinamarca", 1, "Geografia"); // atualiza registro existente
-getQuestions("Geografia");  // filtra questão pelo type OBS:(tema da questão)
-deleteQuestions(11)// deleta questão
+// addQuestions("Onde está localizado a Europa", 1, "Geografia"); // cria um novo registro
+// updateQuestions(6,"Onde está localizado a Dinamarca", 1, "Geografia"); // atualiza registro existente
+// getQuestions("Geografia");  // filtra questão pelo type OBS:(tema da questão)
+// deleteQuestions(11)// deleta questão
 
-addIntroduction("França", "Texto a ser trabalhado na França", "Geografia"); // cria um novo registro de tema
-updateIntroduction(3, "Japão", "Texto a ser trabalhado no Japão", "Geografia"); // atualiza registro existent
-deleteIntroduction(2); // deleta questão
-getIntroduction("Geografia"); // filtra questão pelo type OBS:(tema da questão)
+// addIntroduction("França", "Texto a ser trabalhado na França", "Geografia"); // cria um novo registro de tema
+// updateIntroduction(3, "Japão", "Texto a ser trabalhado no Japão", "Geografia"); // atualiza registro existent
+// deleteIntroduction(2); // deleta questão
+// getIntroduction("Geografia"); // filtra questão pelo type OBS:(tema da questão)
 
-addOption("Primeira Guerra munidal", true); // cria um novo registro de opção
-updateOption(1, "Segunda guerra mundial", true); // atualiza registro existent
-deleteOption(3); // deleta questão
-getOption('Segunda guerra mundial'); // filtra questão pelo type OBS:(tema da questão)
+// addOption("Primeira Guerra munidal", true); // cria um novo registro de opção
+// updateOption(1, "Segunda guerra mundial", true); // atualiza registro existent
+// deleteOption(3); // deleta questão
+// getOption('Segunda guerra mundial'); // filtra questão pelo type OBS:(tema da questão)
 
-addResponse(1, 6, 1); // cria um novo registro de resposta
-updateResponse(1, 1, 5, 1); // atualiza registro existente
-deleteResponse(2); // deleta resposta
-getResponse(1); // filtra reposta pelo id do usuario
+// addResponse(1, 6, 1); // cria um novo registro de resposta
+// updateResponse(1, 1, 5, 1); // atualiza registro existente
+// deleteResponse(2); // deleta resposta
+// getResponse(1); // filtra reposta pelo id do usuario
 
-addUser("Manuel", "2000-11-29", "M"); // cria um novo registro de usuario
-updateUser(3, "Luiza", "2001-12-25", "F"); // atualiza registro existente
-deleteUser(2); // deleta usuario
-getUser("Luiza"); // filtra usuario pelo name_user 
+// addUser("Manuel", "2000-11-29", "M", "teste@teste.com"); // cria um novo registro de usuario
+// updateUser(3, "Luiza", "2001-12-25", "F", "update@teste.com"); // atualiza registro existente
+// deleteUser(2); // deleta usuario
+// getUser("Luiza"); // filtra usuario pelo name_user 

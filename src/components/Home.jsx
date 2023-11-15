@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { QuizContext } from "../context/quiz";
 import { useState } from "react";
 import axios from "axios"; // Importe o axi
+import { addUser as submitUser } from "./requests";
 
 import "./Home.css";
 import AudioPrimeiraEtapa from "./AudioPrimeiraEtapa";
@@ -36,15 +37,9 @@ const Home = () => {
     try {
       // Log do estado antes da requisição
       console.log("State antes da requisição:", { name, birthday, selectedGender, email });
-  
-      // Chama a função axios.post com os dados do estado
-      await axios.post(UrlDefault + "User/create/", {
-        name_user: name,
-        birthday: birthday, // Corrigido para usar o valor real da data de nascimento
-        gender: selectedGender,
-        email: email,
-      });
-  
+      submitUser(name, birthday, selectedGender, email)
+      const user = await submitUser(name, birthday, selectedGender, email);
+
       console.log("Usuário adicionado com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar usuário:", error);

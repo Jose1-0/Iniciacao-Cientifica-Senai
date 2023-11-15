@@ -5,16 +5,20 @@ import Option from "./Option";
 
 import "./Question.css";
 import AudioQuiz from "./AudioQuiz";
-
+import { addResponse } from "./requests";
 const Question = () => {
   const [quizState, dispatch] = useContext(QuizContext)
   const currentQuestion = quizState.questions[quizState.currentQuestion];
+  const userId = quizState.userId;
+  console.log(userId);
 
   const onSelectOption = (option) => {
     dispatch({
       type: "CHECK_ANSWER",
       payload: { answer: currentQuestion.answer, option },
     });
+    try {addResponse(userId, currentQuestion, option)}
+    catch {console.log("Erro, response não cadastrada")}
   };
   
   return (

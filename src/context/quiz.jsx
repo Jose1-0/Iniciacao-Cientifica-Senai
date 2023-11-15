@@ -10,6 +10,7 @@ const initialState = {
     currentQuestion: 0,
     score: 0,
     answerSelected: false,
+    userId: null,
   }
 
 const quizReducer = (state, action) => {
@@ -27,6 +28,11 @@ const quizReducer = (state, action) => {
           ...state,
           gameStage: STAGES[0]
         }
+      case "SET_USER_ID":
+        return {
+        ...state,
+        userId: action.payload,
+      }
 
       case "TXT_PAGE":
         return {
