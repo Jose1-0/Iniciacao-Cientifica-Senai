@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let UrlDefault = "http://127.0.0.1:8000/"
 
-async function getQuestions(subject){
+export async function getQuestions(subject){
     var returnarray = [];
     await axios.get(UrlDefault+"Question/get/")
         .then(function (response) {
@@ -10,8 +10,8 @@ async function getQuestions(subject){
             if (Array.isArray(dataresponse)) {
                 // Usando o método forEach para percorrer o array de objetos
                 dataresponse.forEach(item => {
-                    if (item.type === subject){
-                        returnarray.push(item);
+                    if (item.question_text === subject){
+                        returnarray.push(item.id);
                     }});
             } else {
                 console.log("data não é um array.");
@@ -20,7 +20,6 @@ async function getQuestions(subject){
         .catch(function (error) {
             console.log(error);
         });
-    console.log(returnarray)
     return returnarray;
 };
 
@@ -132,7 +131,7 @@ async function deleteIntroduction(id_introduction){
     });
 };
 
-async function getOption(subject){
+export async function getOption(subject){
   var returnarray = [];
   await axios.get(UrlDefault+"Option/get/")
       .then(function (response) {
@@ -141,7 +140,7 @@ async function getOption(subject){
               // Usando o método forEach para percorrer o array de objetos
               dataresponse.forEach(item => {
                   if (item.option_text === subject){
-                      returnarray.push(item);
+                      returnarray.push(item.id);
                   }});
           } else {
               console.log("data não é um array.");
@@ -217,7 +216,6 @@ async function getResponse(userid){
 
 export async function addResponse(userid, question, selected_option){
   var returnarray = [];
-  console.log(userid, question, selected_option);
   axios.post(UrlDefault+"Response/create/", {
       user: userid,
       question: question,
@@ -257,47 +255,61 @@ async function deleteResponse(id_Response){
     });
 };
 
-async function getUser(name_user){
-  var returnarray = [];
-  await axios.get(UrlDefault+"User/get/")
-      .then(function (response) {
-          const dataresponse = response.data;
-          if (Array.isArray(dataresponse)) {
-              // Usando o método forEach para percorrer o array de objetos
-              dataresponse.forEach(item => {
-                  if (item.name_user === name_user){
-                      returnarray.push(item);
-                  }});
-          } else {
-              console.log("data não é um array.");
-          }
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-  console.log(returnarray)
-  return returnarray;
-};
+async function getUser(name_user) {
+  try {
+    const response = await axios.get(UrlDefault + "User/get/");
+    const dataresponse = response.data;
 
-export async function addUser(name_user, birthday, gender, email){
-  var returnarray = [];
-  console.log(name_user, birthday, gender, email)
-  axios.post(UrlDefault+"User/create/", {
+    if (Array.isArray(dataresponse)) {
+      const user = dataresponse.find((item) => item.name_user === name_user);
+
+      if (user) {
+        return [user]; // Returns an array with a single user
+      } else {
+        return null; // Returns null if the user is not found
+      }
+    } else {
+      console.log("Data is not an array.");
+      return null; // Returns null if the data is not an array
+    }
+  } catch (error) {
+    console.log(error);
+    return null; // Returns null in case of an error
+  }
+}
+
+
+export async function addUser(name_user, birthday, gender, email, dispatch){
+  try {
+    console.log(name_user, birthday, gender, email);
+    const response = await axios.post(UrlDefault + "User/create/", {
       name_user: name_user,
       birthday: birthday,
       email: email,
       gender: gender
-    })
-    .then(function (response) {
-      console.log(response);
-      console.log(getUser(name_user));
-      dispatch({ type: "SET_USER_ID", payload: userId }); 
-      return getUser(name_user);
-    })
-    .catch(function (error) {
-      console.log(error);
     });
+
+    console.log(response);
+
+    // Assuming the response contains the user ID
+    const userId = response.data.id;
+
+    // Fetch the user with the newly created ID
+    const user = await getUser(name_user);
+
+    if (user) {
+      dispatch({ type: "SET_USER_ID", payload: userId });
+      return user;
+    } else {
+      console.error("User not found after creation");
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
+
 
 async function updateUser(id_User, name_user, birthday, gender){
   var returnarray = [];
@@ -341,7 +353,7 @@ async function deleteUser(id_User){
 // deleteOption(3); // deleta questão
 // getOption('Segunda guerra mundial'); // filtra questão pelo type OBS:(tema da questão)
 
-// addResponse(1, 6, 1); // cria um novo registro de resposta
+// addResponse(62, 12, 8); // cria um novo registro de resposta
 // updateResponse(1, 1, 5, 1); // atualiza registro existente
 // deleteResponse(2); // deleta resposta
 // getResponse(1); // filtra reposta pelo id do usuario

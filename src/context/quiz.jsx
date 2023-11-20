@@ -12,7 +12,7 @@ const initialState = {
     answerSelected: false,
     userId: null,
   }
-
+  
 const quizReducer = (state, action) => {
   console.log(state, action)
     switch (action.type) {

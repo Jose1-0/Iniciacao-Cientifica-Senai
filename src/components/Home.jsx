@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { QuizContext } from "../context/quiz";
 import { useState } from "react";
 import axios from "axios"; // Importe o axi
-import { addUser as submitUser } from "./requests";
+import { addUser } from "./requests";
 
 import "./Home.css";
 import AudioPrimeiraEtapa from "./AudioPrimeiraEtapa";
@@ -32,27 +32,20 @@ const Home = () => {
   const handleGenderChange = (event) => {
     setSelectedGender(event.target.value);
   };
-
-  const addUser = async () => {
-    try {
-      // Log do estado antes da requisição
-      console.log("State antes da requisição:", { name, birthday, selectedGender, email });
-      submitUser(name, birthday, selectedGender, email)
-      const user = await submitUser(name, birthday, selectedGender, email);
-
-      console.log("Usuário adicionado com sucesso!");
-    } catch (error) {
-      console.error("Erro ao adicionar usuário:", error);
-    }
-  };
-  
   
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     // Adiciona a chamada para a função addUser antes de dispatch
-    addUser();
-
-    // Continua com o dispatch normalmente
+    const user = await addUser(name, birthday, selectedGender, email, dispatch);
+    
+    if (user && user.length > 0) {
+      const userId = user[0].id; // Assuming the user array has an 'id' property
+      dispatch({ type: "SET_USER_ID", payload: userId });
+    } else {
+      console.error("User not found after creation");
+    }
+  
+    // Continue with the dispatch normally
     dispatch({ type: "HOME_PAGE" });
   };
 

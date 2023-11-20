@@ -5,21 +5,38 @@ import Option from "./Option";
 
 import "./Question.css";
 import AudioQuiz from "./AudioQuiz";
-import { addResponse } from "./requests";
-const Question = () => {
-  const [quizState, dispatch] = useContext(QuizContext)
-  const currentQuestion = quizState.questions[quizState.currentQuestion];
-  const userId = quizState.userId;
-  console.log(userId);
+import { addResponse, getOption, getQuestions } from "./requests";
 
-  const onSelectOption = (option) => {
+const Question = () => {
+  const [quizState, dispatch] = useContext(QuizContext);
+  const currentQuestion = quizState.questions[quizState.currentQuestion];
+  const userId = parseInt(quizState.userId); // Extract userId from quizState
+
+  const onSelectOption = async (option) => {
     dispatch({
       type: "CHECK_ANSWER",
       payload: { answer: currentQuestion.answer, option },
     });
-    try {addResponse(userId, currentQuestion, option)}
-    catch {console.log("Erro, response não cadastrada")}
+
+
+  if (userId) {
+    try {
+      const questionId = parseInt((await getQuestions(currentQuestion.question))[0]);
+      const selectedOptionId = parseInt((await getOption(currentQuestion.answer))[0]);
+      addResponse(userId, questionId, selectedOptionId);
+      
+    } catch (error) {
+      console.log("Erro, response não cadastrada", error);
+    }
+  } else {
+    console.log("UserID é nulo. Não é possível adicionar resposta.");
+  }
+
+
+
   };
+
+  
   
   return (
     <div id='question'>
